@@ -1,6 +1,6 @@
 {
     "name": "vue-forward-slots",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Forward slots to child components",
     "type": "module",
     "main": "dist/index.cjs.js",
