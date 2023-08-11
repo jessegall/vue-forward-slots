@@ -1,6 +1,6 @@
 # Vue Forward Slots
 
-Need to forward slots to a child component? This package makes it easy to share slots between components.
+Need to forward slots to a child component? This package makes it easy to forward slots to a child component.
 
 **No more need for iterating over slots and passing them down to child components!**
 
