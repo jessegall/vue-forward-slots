@@ -1,4 +1,4 @@
-# Vue Shared Slots
+# Vue Forward Slots
 
 Need to forward slots to a child component? This package makes it easy to share slots between components.
 
