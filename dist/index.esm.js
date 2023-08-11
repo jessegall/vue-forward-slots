@@ -2567,7 +2567,7 @@ function useSlotForwarding() {
     function forwardSlotsTo(component) {
         const render = component.render;
         const slots = useSlots();
-        return component.render = (context, ...args) => {
+        component.render = (context, ...args) => {
             return render(new Proxy(context, {
                 get(target, prop) {
                     if (prop === '$slots') {
