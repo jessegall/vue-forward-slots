@@ -4,7 +4,7 @@ Need to forward slots to a child component? This package makes it easy to forwar
 
 **No more need for iterating over slots and passing them down to child components!**
 
-Old way 💩
+## Old way 💩
 ```vue
 <script setup>
 import MyComponent from '@/Components/MyComponent.vue';
@@ -22,7 +22,7 @@ import MyComponent from '@/Components/MyComponent.vue';
 </template>
 ```
 
-New way 🚀
+## New way 🚀
 ```vue
 <script setup>
 import MyComponent from '@/Components/MyComponent.vue'
@@ -36,8 +36,6 @@ forwardSlotsTo(MyComponent); // Jup, that easy!
     <MyComponent/> <!-- Slots will now be forwarded to MyComponent -->
 </template>
 ```
-
-Easily share slots between components!
 
 ## Installation
 
