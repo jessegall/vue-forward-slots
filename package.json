@@ -27,5 +27,12 @@
     },
     "files": [
         "dist"
+    ],
+    "keywords": [
+        "vue",
+        "vue3",
+        "forward",
+        "slots",
+        "forward-slots"
     ]
 }
