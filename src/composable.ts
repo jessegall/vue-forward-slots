@@ -1,6 +1,6 @@
 import { useSlots } from "vue";
 
-export function useSlotForwarding() {
+export function useForwardSlots() {
 
     function forwardSlotsTo(component: any): void {
         const render = component.render;

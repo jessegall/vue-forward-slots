@@ -1,1 +1,1 @@
-export { useSlotForwarding } from './slot-forwarding';
+export { useForwardSlots } from './composable';
