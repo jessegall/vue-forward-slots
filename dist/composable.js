@@ -1,8 +1,11 @@
-import { useSlots } from "vue";
-export function useForwardSlots() {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useForwardSlots = void 0;
+const vue_1 = require("vue");
+function useForwardSlots() {
     function forwardSlotsTo(component) {
         const render = component.render;
-        const slots = useSlots();
+        const slots = (0, vue_1.useSlots)();
         component.render = (context, ...args) => {
             return render(new Proxy(context, {
                 get(target, prop) {
@@ -18,3 +21,4 @@ export function useForwardSlots() {
         forwardSlotsTo,
     };
 }
+exports.useForwardSlots = useForwardSlots;
