@@ -1,6 +1,2 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.forwardSlotsTo = void 0;
-function forwardSlotsTo() {
+export function forwardSlotsTo() {
 }
-exports.forwardSlotsTo = forwardSlotsTo;
