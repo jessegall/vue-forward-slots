@@ -26,7 +26,7 @@ import MyComponent from '@/Components/MyComponent.vue';
 ```vue
 <script setup>
 import MyComponent from '@/Components/MyComponent.vue'
-import { useSlotForwarding } from "vue-forward-slots";
+import { useForwardSlots } from "vue-forward-slots";
 
 const { forwardSlotsTo } = useForwardSlots();
 forwardSlotsTo(MyComponent); // Jup, that easy!
