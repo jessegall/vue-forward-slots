@@ -5,12 +5,10 @@
     "type": "module",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "module": "ESNext",
-    "target": "ES6",
     "scripts": {
         "build": "tsc"
     },
-    "author": "Your Name",
+    "author": "Jesse Gall",
     "repository": {
         "type": "git",
         "url": "https://github.com/jessegall/vue-forward-slots"
