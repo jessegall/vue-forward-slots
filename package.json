@@ -4,7 +4,6 @@
     "description": "Forward slots to child components",
     "type": "module",
     "main": "dist/index.js",
-    "module": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "tsc"
