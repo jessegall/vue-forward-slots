@@ -1,30 +1,53 @@
-import { useSlots } from "vue";
+import { defineComponent, getCurrentInstance, h } from "vue";
 
 export function useForwardSlots() {
 
-    function forwardSlotsTo(component: any): void {
-        const render = component.render;
+    function forwardSlotsTo(component: any, instance = getCurrentInstance()): void {
+        if (! instance) {
+            return;
+        }
 
-        const slots = useSlots();
+        const slots = { ...instance.slots };
 
-        component.render = (context: any, ...args: any) => {
-            return render(
-                new Proxy(context, {
-                    get(target, prop) {
-                        if (prop === '$slots') {
-                            return { ...slots, ...context.$slots };
-                        }
+        if (component.uid) {
+            if (! component.__v_isForwardSlot) {
+                const originalRender = component.render;
 
-                        return target[prop];
-                    }
-                }),
-                ...args
-            );
+                component.render = (context: any, ...args: any) => {
+                    return originalRender(
+                        new Proxy(context, {
+                            get(target, prop) {
+                                if (prop === '$slots') {
+                                    return { ...slots, ...context.$slots };
+                                }
+
+                                return target[prop];
+                            }
+                        }),
+                        ...args
+                    );
+                }
+
+                component.__v_isForwardSlot = true;
+            }
+
+            Object.assign(component.slots, slots);
+        } else {
+            const copy = { ...component };
+
+            // Delete all properties from the component
+            for (const prop in component) {
+                delete component[prop];
+            }
+
+            Object.assign(component, defineComponent({
+                name: 'ForwardSlots',
+                setup: (props: any) => () => h(copy, props, slots)
+            }));
         }
     }
 
     return {
         forwardSlotsTo,
-    }
-
+    };
 }

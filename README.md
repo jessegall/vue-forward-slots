@@ -1,10 +1,51 @@
 # Vue Forward Slots
 
-Need to forward slots to a child component? This package makes it easy to forward slots to a child component.
+Need to forward slots to a child component?
+This package will help you do just that in a simple and clean way.
 
-**No more need for iterating over slots and passing them down to child components!**
+## Installation
 
-## Old way 💩
+```bash
+npm install vue-forward-slots
+```
+
+In your main.js file:
+
+```js
+import { createApp } from 'vue';
+import App from './App.vue';
+import VueForwardSlots from 'vue-forward-slots';
+
+const app = createApp(App);
+app.use(VueForwardSlots); 
+```
+
+## Usage
+
+Using a directive:
+
+```vue
+<MyComponent v-forward-slots/>
+```
+
+Or using a composable:
+
+```vue
+<script setup>
+import MyComponent from '@/Components/MyComponent.vue'
+import { useForwardSlots } from "vue-forward-slots";
+
+const { forwardSlotsTo } = useForwardSlots();
+forwardSlotsTo(MyComponent);
+</script>
+
+<template>
+    <MyComponent/> <!-- Slots will now be forwarded to MyComponent -->
+</template>
+```
+
+## The old default way without this package
+
 ```vue
 <script setup>
 import MyComponent from '@/Components/MyComponent.vue';
@@ -20,25 +61,4 @@ import MyComponent from '@/Components/MyComponent.vue';
         </template>
     </MyComponent>
 </template>
-```
-
-## New way 🚀
-```vue
-<script setup>
-import MyComponent from '@/Components/MyComponent.vue'
-import { useForwardSlots } from "vue-forward-slots";
-
-const { forwardSlotsTo } = useForwardSlots();
-forwardSlotsTo(MyComponent); // Jup, that easy!
-</script>
-
-<template>
-    <MyComponent/> <!-- Slots will now be forwarded to MyComponent -->
-</template>
-```
-
-## Installation
-
-```bash
-npm install vue-forward-slots
 ```
