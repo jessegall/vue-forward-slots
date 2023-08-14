@@ -11,9 +11,3 @@ export const forwardSlotsDirective = {
         forwardSlots(vnode);
     },
 };
-const VueForwardSlots = {
-    install(app) {
-        app.directive('forward-slots', forwardSlotsDirective);
-    }
-};
-export default VueForwardSlots;
