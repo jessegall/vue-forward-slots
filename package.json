@@ -8,6 +8,7 @@
     },
     "main": "dist/vue-forward-slots.js",
     "module": "dist/vue-forward-slots.mjs",
+    "types": "dist/vue-forward-slots.d.ts",
     "files": [
         "dist"
     ],
