@@ -6,11 +6,11 @@ function forwardSlots(vnode: any) {
     forwardSlotsTo(vnode.ctx, vnode.ctx.parent);
 }
 
-export const forwardSlotsDirective: Directive = {
-    created(el, binding, vnode) {
-        forwardSlots(vnode);
-    },
-    updated(el, binding, vnode) {
-        forwardSlots(vnode);
-    },
-};
+// export const forwardSlotsDirective: Directive = {
+//     created(el, binding, vnode) {
+//         forwardSlots(vnode);
+//     },
+//     updated(el, binding, vnode) {
+//         forwardSlots(vnode);
+//     },
+// };

@@ -22,15 +22,6 @@ app.use(VueForwardSlots);
 
 ## Usage
 
-Using a directive:
-
-```vue
-
-<MyComponent v-forward-slots/>
-```
-
-Or using a composable:
-
 ```vue
 
 <script setup>
