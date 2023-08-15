@@ -6,7 +6,7 @@
     "scripts": {
         "build": "vite build"
     },
-    "main": "dist/vue-forward-slots.umd.js",
+    "main": "dist/vue-forward-slots.cjs.js",
     "module": "dist/vue-forward-slots.es.js",
     "types": "dist/vue-forward-slots.d.ts",
     "exports": {
@@ -23,6 +23,8 @@
         "vue": "^3.0.0"
     },
     "devDependencies": {
+        "@rollup/plugin-commonjs": "^25.0.4",
+        "@rollup/plugin-node-resolve": "^15.1.0",
         "@vitejs/plugin-vue": "^4.2.3",
         "typescript": "^4.9.5",
         "vite": "^4.4.9"
