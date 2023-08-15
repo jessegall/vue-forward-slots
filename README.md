@@ -9,17 +9,6 @@ This package will help you do just that in a simple and clean way.
 npm install vue-forward-slots
 ```
 
-In your main.js file:
-
-```js
-import { createApp } from 'vue';
-import App from './App.vue';
-import { VueForwardSlots } from 'vue-forward-slots';
-
-const app = createApp(App);
-app.use(VueForwardSlots); 
-```
-
 ## Usage
 
 ```vue
