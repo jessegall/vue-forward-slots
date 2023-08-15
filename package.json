@@ -6,16 +6,8 @@
     "scripts": {
         "build": "vite build"
     },
-    "main": "dist/vue-forward-slots.cjs.js",
-    "module": "dist/vue-forward-slots.es.js",
-    "types": "dist/vue-forward-slots.d.ts",
-    "exports": {
-        ".": {
-            "import": "./dist/vue-forward-slots.es.js",
-            "require": "./dist/vue-forward-slots.umd.js"
-        },
-        "./package.json": "./package.json"
-    },
+    "main": "dist/vue-forward-slots.js",
+    "module": "dist/vue-forward-slots.mjs",
     "files": [
         "dist"
     ],
