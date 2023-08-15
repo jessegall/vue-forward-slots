@@ -9,6 +9,13 @@
     "main": "dist/vue-forward-slots.umd.js",
     "module": "dist/vue-forward-slots.es.js",
     "types": "dist/vue-forward-slots.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/vue-forward-slots.es.js",
+            "require": "./dist/vue-forward-slots.umd.js"
+        },
+        "./package.json": "./package.json"
+    },
     "files": [
         "dist"
     ],
