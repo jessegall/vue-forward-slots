@@ -2,33 +2,35 @@
     "name": "vue-forward-slots",
     "version": "2.2.0",
     "description": "Forward slots to child components",
-    "type": "module",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "tsc"
-    },
     "author": "Jesse Gall",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jessegall/vue-forward-slots"
+    "scripts": {
+        "build": "vite build"
     },
-    "homepage": "https://github.com/jessegall/vue-forward-slots",
-    "license": "MIT",
+    "main": "dist/vue-forward-slots.umd.js",
+    "module": "dist/vue-forward-slots.es.js",
+    "types": "dist/vue-forward-slots.d.ts",
+    "files": [
+        "dist"
+    ],
     "dependencies": {
         "vue": "^3.0.0"
     },
     "devDependencies": {
-        "typescript": "^4.3.5"
+        "@vitejs/plugin-vue": "^4.2.3",
+        "typescript": "^4.9.5",
+        "vite": "^4.4.9"
     },
-    "files": [
-        "dist"
-    ],
+    "homepage": "https://github.com/jessegall/vue-forward-slots",
     "keywords": [
         "vue",
         "vue3",
         "forward",
         "slots",
         "forward-slots"
-    ]
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jessegall/vue-forward-slots"
+    }
 }

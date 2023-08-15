@@ -1,10 +1,3 @@
-// import { App } from "vue";
-// import { forwardSlotsDirective } from "./directive";
+import ForwardSlots from "./components/forward-slots.vue";
 
-export { useForwardSlots } from './composable';
-
-// export const VueForwardSlots = {
-//     install(app: App) {
-//         app.directive('forward-slots', forwardSlotsDirective);
-//     }
-// };
+export default ForwardSlots;

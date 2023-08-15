@@ -14,34 +14,23 @@ npm install vue-forward-slots
 ```vue
 
 <script setup>
-import MyComponent from '@/Components/MyComponent.vue'
-import { useForwardSlots } from "vue-forward-slots";
-
-const { forwardSlotsTo } = useForwardSlots();
-forwardSlotsTo(MyComponent);
+import ForwardSlots from 'vue-forward-slots'
 </script>
 
 <template>
-    <MyComponent/> <!-- Slots will now be forwarded to MyComponent -->
-</template>
-```
+    `// Forward all slots
+    <ForwardSlots>
+        <MyComponent/>
+    </ForwardSlots>
 
-## The old default way without this package
-
-```vue
-
-<script setup>
-import MyComponent from '@/Components/MyComponent.vue';
-
-...
-
-</script>
-
-<template>
-    <MyComponent>
-        <template v-for="(index, name) in $slots" v-slot:[name]="data">
-            <slot :name="name" v-bind="data"/>
-        </template>
-    </MyComponent>
+    // Forward specific slots
+    <ForwardSlots :slots="['slot-one', 'slot-two']">
+        <MyComponent/>
+    </ForwardSlots>
+    
+    // Forward all but some slots
+    <ForwardSlots :exclude="['slot-one', 'slot-two']">
+        <MyComponent/>
+    </ForwardSlots>
 </template>
 ```
