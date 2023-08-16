@@ -20,7 +20,7 @@ function withForwardSlots(
     instance = getCurrentInstance(),
     options: Props = {}
 ): any {
-    const { slots = null, exclude = null } = options;
+    const { slots = null, exclude = ['default'] } = options;
 
     const resolved = findSlotsRecursive(instance);
 
@@ -50,8 +50,6 @@ function findSlotsRecursive(instance: any): any {
     if (instance?.slots) {
         Object.assign(slots, instance.slots)
     }
-
-    delete slots["default"];
 
     return slots;
 }
