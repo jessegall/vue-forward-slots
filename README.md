@@ -4,9 +4,7 @@ Need to forward slots to a child component? This package makes it easy to forwar
 
 **No more need for iterating over slots and passing them down to child components!**
 
-
-With forward slots 🚀
-## New way 🚀
+## With vue forward slots 🚀
 
 ```vue
 
