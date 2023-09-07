@@ -1,46 +1,73 @@
 <script lang="ts">
-import { computed, defineComponent, getCurrentInstance, h, useSlots } from 'vue';
+import { ForwardSlotsProps } from "@/vue-forward-slots";
+import { computed, defineComponent, getCurrentInstance, h, PropType, useSlots, VNode } from 'vue';
+
+
+function validator(value: any): boolean {
+    return typeof value === 'string' || Array.isArray(value);
+}
 
 export default defineComponent({
     name: "ForwardSlots",
     props: {
-        slots: {
-            type: Array,
-            default: () => null,
+        slot: {
+            type: [String, Array] as PropType<string | string[]>,
+            default: () => [],
+            validator,
         },
         exclude: {
-            type: Array,
-            default: () => ['default']
+            type: [String, Array] as PropType<string | string[]>,
+            default: () => 'default',
+            validator,
         }
     },
-    setup(props) {
+    setup(props: ForwardSlotsProps, ctx) {
+        // Allow backwards compatability
+        if (ctx.attrs.slots) {
+            props = new Proxy(props, {
+                get(target, prop) {
+                    if (prop === 'slot') {
+                        return ctx.attrs.slots;
+                    }
+
+                    return target[prop];
+                }
+            });
+        }
+
         const currentInstance = getCurrentInstance();
         const slots = useSlots();
 
-        const childComponent = computed(() => {
-            const component = slots.default?.()[0];
-            return withForwardedSlots(component, currentInstance, props);
-        });
+        const childComponents = computed(() => slots.default?.().map(
+            component => withForwardedSlots(component, currentInstance, props)) || []
+        );
 
-        return () => h(childComponent.value);
+        return () => childComponents.value.map(childComponent => h(childComponent));
     }
 });
 
-function withForwardedSlots(component: any, instance: any, options: any = {}): any {
-    const { slots: includedSlots = null, exclude = null } = options;
-    const resolvedSlots = gatherSlots(instance);
+function withForwardedSlots(component: VNode | undefined, instance: any, options: ForwardSlotsProps = {}): VNode {
+    let include = normalizeToArray(options.slot);
+    let exclude = normalizeToArray(options.exclude);
 
-    const filteredSlots = Object.keys(resolvedSlots)
-        .filter(key => (! includedSlots || includedSlots.includes(key)) && (! exclude || ! exclude.includes(key)))
+    const slots = resolveSlots(instance);
+
+    const filteredSlots: Record<string, (args: any) => any> = Object.keys(slots)
+        .filter(key => (! include.length || include.includes(key)) && (! exclude.length || ! exclude.includes(key)))
         .reduce((acc, key) => {
-            acc[key] = args => resolvedSlots[key](args);
+            acc[key] = args => slots[key](args);
             return acc;
-        }, {} as Record<string, (args: any) => any>);
+        }, {});
 
     return h(component, options, { ...filteredSlots, ...useSlots() });
 }
 
-function gatherSlots(instance: any): any {
+function normalizeToArray(input: string | string[] | undefined) {
+    if (Array.isArray(input)) return input;
+    return input ? [input] : [];
+}
+
+function resolveSlots(instance: any): any {
     const slots = { ...instance.slots };
     if (instance.parent) {
         Object.assign(slots, instance.parent.slots);

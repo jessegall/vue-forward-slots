@@ -1,12 +1,10 @@
-declare module 'vue-forward-slots' {
-    import { DefineComponent } from 'vue';
+import { DefineComponent } from 'vue';
 
-    export interface ForwardSlotsProps {
-        slots?: string[];
-        exclude?: string[];
-    }
-
-    const ForwardSlots: DefineComponent<ForwardSlotsProps>;
-
-    export default ForwardSlots;
+export interface ForwardSlotsProps {
+    slot?: string | string[];
+    exclude?: string | string[];
 }
+
+export const ForwardSlots: DefineComponent<ForwardSlotsProps>;
+
+export default ForwardSlots;
