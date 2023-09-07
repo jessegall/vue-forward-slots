@@ -59,7 +59,7 @@ function withForwardedSlots(component: VNode | undefined, instance: any, options
             return acc;
         }, {});
 
-    return h(component, options, { ...filteredSlots, ...useSlots() });
+    return h(component, options, filteredSlots);
 }
 
 function normalizeToArray(input: string | string[] | undefined) {
