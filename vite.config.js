@@ -8,7 +8,7 @@ export default defineConfig({
 	build: {
 		lib: {
 			entry: 'src/index.ts',
-			name: 'MyLib',
+			name: 'ForwardSlots',
 			formats: ['es', 'cjs'],
 		},
 		rollupOptions: {

@@ -1,13 +1,45 @@
 # Vue Forward Slots
 
-**Vue Forward Slots** is a Vue utility to effortlessly forward slots to child components. If you've ever been in a
-situation where you needed to forward slots from a parent to a child component, this package makes that a breeze.
+Need to forward slots to a child component? This package makes it easy to forward slots to a child component.
 
-## Features
+**No more need for iterating over slots and passing them down to child components!**
 
-1. Forward all slots with ease.
-2. Choose specific slots to forward.
-3. Exclude certain slots from being forwarded.
+
+With forward slots 🚀
+## New way 🚀
+
+```vue
+
+<script setup>
+import MyComponent from '@/Components/MyComponent.vue'
+import ForwardSlots from 'vue-forward-slots'
+</script>
+
+<template>
+    <ForwardSlots>
+        <MyComponent/> <!-- Slots will now be forwarded to MyComponent -->
+    </ForwardSlots>
+</template>
+```
+
+Old way 💩
+## Old way 💩
+```vue
+<script setup>
+import MyComponent from '@/Components/MyComponent.vue';
+
+...
+
+</script>
+
+<template>
+    <MyComponent>
+        <template v-for="(index, name) in $slots" v-slot:[name]="data">
+            <slot :name="name" v-bind="data"/>
+        </template>
+    </MyComponent>
+</template>
+```
 
 ## Installation
 
