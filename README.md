@@ -7,7 +7,6 @@ Need to forward slots to a child component? This package makes it easy to forwar
 ## With vue forward slots 🚀
 
 ```vue
-
 <script setup>
 import MyComponent from '@/Components/MyComponent.vue'
 import { ForwardSlots } from 'vue-forward-slots'
@@ -20,12 +19,23 @@ import { ForwardSlots } from 'vue-forward-slots'
 </template>
 ```
 
-## Old way 💩
+You can even forward to multiple components at once!
 
 ```vue
+<ForwardSlots>
+    <MyComponent/>
+    <MyOtherComponent/>
+</ForwardSlots>
+```
 
+## Old way 💩
+
+Without vue forward slots, you would have to do something like this:
+
+```vue
 <script setup>
 import MyComponent from '@/Components/MyComponent.vue';
+import MyOtherComponent from '@/Components/MyOtherComponent.vue';
 
 ...
 
@@ -37,8 +47,15 @@ import MyComponent from '@/Components/MyComponent.vue';
             <slot :name="name" v-bind="data"/>
         </template>
     </MyComponent>
+    <MyOtherComponent>
+        <template v-for="(index, name) in $slots" v-slot:[name]="data">
+            <slot :name="name" v-bind="data"/>
+        </template>
+    </MyOtherComponent>
 </template>
 ```
+
+Blegch! Bloated and ugly!
 
 ## Installation
 
@@ -51,7 +68,6 @@ npm install vue-forward-slots
 ### Import the Component
 
 ```vue
-
 <script setup>
 import { ForwardSlots } from 'vue-forward-slots'
 </script>
@@ -60,7 +76,6 @@ import { ForwardSlots } from 'vue-forward-slots'
 ### Forward All Slots (Except Default)
 
 ```vue
-
 <template>
     <ForwardSlots>
         <MyComponent/>
@@ -71,7 +86,6 @@ import { ForwardSlots } from 'vue-forward-slots'
 ### Forward Single Slot
 
 ```vue
-
 <template>
     <ForwardSlots slot="slotname">
         <MyComponent/>
@@ -82,7 +96,6 @@ import { ForwardSlots } from 'vue-forward-slots'
 ### Forward Specific Slots
 
 ```vue
-
 <template>
     <ForwardSlots :slot="['slot-one', 'slot-two']">
         <MyComponent/>
@@ -93,7 +106,6 @@ import { ForwardSlots } from 'vue-forward-slots'
 ### Forward All Slots Except Some
 
 ```vue
-
 <template>
     <ForwardSlots :exclude="['default', 'slot-two']">
         <MyComponent/>
@@ -104,7 +116,6 @@ import { ForwardSlots } from 'vue-forward-slots'
 ### Forward All Slots Including Default
 
 ```vue
-
 <template>
     <ForwardSlots :exclude="[]">
         <MyComponent/>
