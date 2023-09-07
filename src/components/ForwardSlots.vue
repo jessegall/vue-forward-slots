@@ -37,8 +37,6 @@ function withForwardedSlots(component: any, instance: any, options: any = {}): a
             return acc;
         }, {} as Record<string, (args: any) => any>);
 
-    console.log(filteredSlots);
-
     return h(component, options, { ...filteredSlots, ...useSlots() });
 }
 
