@@ -7,7 +7,6 @@ Need to forward slots to a child component? This package makes it easy to forwar
 ## With vue forward slots 🚀
 
 ```vue
-
 <script setup>
 import MyComponent from '@/Components/MyComponent.vue'
 import ForwardSlots from 'vue-forward-slots'
@@ -20,7 +19,6 @@ import ForwardSlots from 'vue-forward-slots'
 </template>
 ```
 
-Old way 💩
 ## Old way 💩
 ```vue
 <script setup>
