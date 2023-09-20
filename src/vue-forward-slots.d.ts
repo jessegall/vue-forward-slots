@@ -6,5 +6,3 @@ export interface ForwardSlotsProps {
 }
 
 export const ForwardSlots: DefineComponent<ForwardSlotsProps>;
-
-export default ForwardSlots;
