@@ -17,7 +17,6 @@
         "vue": "^3.0.0"
     },
     "devDependencies": {
-        "@babel/types": "^7.22.15",
         "@rollup/plugin-commonjs": "^25.0.4",
         "@rollup/plugin-node-resolve": "^15.1.0",
         "@vitejs/plugin-vue": "^4.2.3",
