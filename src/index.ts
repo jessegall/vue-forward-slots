@@ -1,4 +1,4 @@
-import ForwardSlots from "./components/ForwardSlots.vue";
+import ForwardSlots from "./components/forward-slots";
 
 export {
     ForwardSlots

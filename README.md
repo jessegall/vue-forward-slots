@@ -1,42 +1,25 @@
 # Vue Forward Slots
 
-Need to forward slots to a child component? This package makes it easy to forward slots to a child component.
+Effortlessly forward slots to child components in Vue 3 applications.
 
-**No more need for iterating over slots and passing them down to child components!**
+## Features
 
-## With vue forward slots 🚀
+- Easily forward all slots or specific slots to child components
+- Simple and declarative syntax
 
-```vue
+## Why Vue Forward Slots?
 
-<script setup>
-import MyComponent from '@/Components/MyComponent.vue'
-import { ForwardSlots } from 'vue-forward-slots'
-</script>
+In Vue applications, it's common to need to forward slots from a parent component to a child component. However, the default way of doing this can be verbose and repetitive. Consider the following example:
 
-<template>
-    <ForwardSlots>
-        <MyComponent/> <!-- Slots will now be forwarded to MyComponent -->
-    </ForwardSlots>
-</template>
-```
-
-## Old way 💩
+### The Default Way
 
 ```vue
-
-<script setup>
-import MyComponent from '@/Components/MyComponent.vue';
-
-...
-
-</script>
-
 <template>
-    <MyComponent>
+    <ChildComponent>
         <template v-for="(index, name) in $slots" v-slot:[name]="data">
             <slot :name="name" v-bind="data"/>
         </template>
-    </MyComponent>
+    </ChildComponent>
 </template>
 ```
 
@@ -48,73 +31,60 @@ npm install vue-forward-slots
 
 ## Usage
 
-### Import the Component
+### Basic Usage
 
 ```vue
-
 <script setup>
-import { ForwardSlots } from 'vue-forward-slots'
+    import MyComponent from '@/Components/MyComponent.vue'
+    import { ForwardSlots } from 'vue-forward-slots'
 </script>
-```
-
-### Forward All Slots (Except Default)
-
-```vue
 
 <template>
     <ForwardSlots>
-        <MyComponent/>
+        <MyComponent/> <!-- All slots will be forwarded to MyComponent -->
     </ForwardSlots>
 </template>
 ```
 
-### Forward Single Slot
+### Forwarding Only Specific Slots
 
 ```vue
-
 <template>
-    <ForwardSlots slot="slotname">
+    // For a single slot
+    <ForwardSlots slot="header">
+        <MyComponent/>
+    </ForwardSlots>
+
+    // For multiple slots
+    <ForwardSlots :slots="['header', 'footer']">
         <MyComponent/>
     </ForwardSlots>
 </template>
 ```
 
-### Forward Specific Slots
+### Excluding Specific Slots
 
 ```vue
-
 <template>
-    <ForwardSlots :slot="['slot-one', 'slot-two']">
+    // Excluding a single slot
+    <ForwardSlots :exclude="'sidebar'">
+        <MyComponent/>
+    </ForwardSlots>
+
+    // Excluding multiple slots
+    <ForwardSlots :exclude="['sidebar', 'footer']">
         <MyComponent/>
     </ForwardSlots>
 </template>
 ```
 
-### Forward All Slots Except Some
+## How It Works
 
-```vue
+The `ForwardSlots` component uses some clever tricks to simplify slot forwarding:
 
-<template>
-    <ForwardSlots :exclude="['default', 'slot-two']">
-        <MyComponent/>
-    </ForwardSlots>
-</template>
-```
+1. It captures the parent component's slots during initialization.
+2. It filters these slots based on the `slot` and `exclude` props.
+3. It creates copies of the selected slots.
+4. It passes these copies to the child components.
 
-### Forward All Slots Including Default
-
-```vue
-
-<template>
-    <ForwardSlots :exclude="[]">
-        <MyComponent/>
-    </ForwardSlots>
-</template>
-```
-
-## Props
-
-| Prop      | Type          | Description                                                                                                                       | Default Value |
-|-----------|---------------|-----------------------------------------------------------------------------------------------------------------------------------|---------------|
-| `slot`    | Array, String | Specifies slot names to forward, either as a string or an array. If omitted, all slots are forwarded (except those in `exclude`). | `[]`          |
-| `exclude` | Array, String | Specifies slot names not to forward, either as a string or an array. The `default` slot is always excluded by default.            | `['default']` |
+This happens automatically, allowing for easy and flexible slot forwarding without cluttering your template code.
