@@ -106,7 +106,7 @@ We forward the slots to the child components.
 #### TableHead Component
 
 The TableHeadComponent now has access to the slots defined in the root component. If no slot is provided, it will
-default to the text in the slot.
+use the default value.
 
 ```vue
 <template>
@@ -130,7 +130,7 @@ default to the text in the slot.
 #### TableBody Component
 
 The TableBodyComponent also has access to the slots defined in the root component. If no slot is provided, it will
-default to the text in the slot.
+use the default value.
 
 ```vue
 <template>
