@@ -15,13 +15,17 @@ default way of doing this can be verbose and repetitive. Consider the following 
 ### The Default Way
 
 ```vue
-
 <template>
     <ChildComponent>
         <template v-for="(index, name) in $slots" v-slot:[name]="data">
             <slot :name="name" v-bind="data"/>
         </template>
     </ChildComponent>
+    <AnotherChildComponent>
+        <template v-for="(index, name) in $slots" v-slot:[name]="data">
+            <slot :name="name" v-bind="data"/>
+        </template>
+    </AnotherChildComponent>
 </template>
 ```
 
@@ -30,10 +34,10 @@ Verbose and hard to read!
 ### With Vue Forward Slots
 
 ```vue
-
 <template>
     <ForwardSlots>
         <ChildComponent/>
+        <AnotherChildComponent/>
     </ForwardSlots>
 </template>
 ```
@@ -46,34 +50,128 @@ Simple and clean!
 npm install vue-forward-slots
 ```
 
-## Usage
+### Importing
 
-### Basic Usage
+You can import it in the component where you want to use it.
 
 ```vue
-
-<script setup>
-    import MyComponent from '@/Components/MyComponent.vue'
-    import { ForwardSlots } from 'vue-forward-slots'
+<script>
+    import { ForwardSlots } from "vue-forward-slots";
+    ...
 </script>
+```
 
+## Usage
+
+### Example Usage
+
+A classic example is that of a table component with multiple levels of nested components.
+We can easily define and forward slots to nested components using the `ForwardSlots` component.
+
+#### Root Component
+
+In this example we want the name header and role column to be customized. We define the slots like normal.
+
+```vue
 <template>
-    <ForwardSlots>
-        <MyComponent/> <!-- All slots will be forwarded to MyComponent -->
-    </ForwardSlots>
-    
-    // You can also forward slots to multiple components
-    <ForwardSlots>
-        <MyComponent/>
-        <AnotherComponent/>
-    </ForwardSlots>
+    <TableComponent>
+        // Notice that we still have access to the slot data like we would normally
+        <template #name_header="{ value }">
+            <p class="font-bold">{{ value }}</p>
+        </template>
+
+        <template #role_column="{ value }">
+            <RoleBadge :role="value"/>
+        </template>
+    </TableComponent>
 </template>
 ```
+
+#### Table Component
+
+We forward the slots to the child components.
+
+```vue
+<template>
+    <table>
+        // Notice that we can wrap multiple components in the ForwardSlots component
+        <ForwardSlots>
+            <TableHeadComponent/>
+            <TableBodyComponent/>
+        </ForwardSlots>
+    </table>
+</template>
+```
+
+#### TableHead Component
+
+The TableHeadComponent now has access to the slots defined in the root component. If no slot is provided, it will
+default to the text in the slot.
+
+```vue
+<template>
+    <thead>
+    <tr>
+        <th>
+            <slot name="name_header">
+                Name
+            </slot>
+        </th>
+        <th>
+            <slot name="role_header">
+                Role
+            </slot>
+        </th>
+    </tr>
+    </thead>
+</template>
+```
+
+#### TableBody Component
+
+The TableBodyComponent also has access to the slots defined in the root component. If no slot is provided, it will
+default to the text in the slot.
+
+```vue
+<template>
+    <tbody>
+    <tr v-for="row in rows">
+        <td>
+            <slot name="name_column" :value="row.name">
+                {{ row.name }}
+            </slot>
+        </td>
+        <td>
+            <slot name="role_column" :value="row.role">
+                {{ row.role }}
+            </slot>
+        </td>
+    </tr>
+    </tbody>
+</template>
+```
+
+We could even go a step further and forward the slots to the next level of child components.
+
+```vue
+<template>
+    <thead>
+    <tr>
+        <th v-for="header in headers">
+            <ForwardSlots>
+                <TableHeaderCellComponent/>
+            </ForwardSlots>
+        </th>
+    </tr>
+    </thead>
+</template>
+```
+
+In theory, we could keep forwarding slots to as many levels of child components as we need.
 
 ### Forwarding Only Specific Slots
 
 ```vue
-
 <template>
     // For a single slot
     <ForwardSlots slot="header">
@@ -90,7 +188,6 @@ npm install vue-forward-slots
 ### Excluding Specific Slots
 
 ```vue
-
 <template>
     // Excluding a single slot
     <ForwardSlots :exclude="'sidebar'">
