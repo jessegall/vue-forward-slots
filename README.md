@@ -9,7 +9,7 @@ Effortlessly forward slots to child components in Vue 3 applications.
 
 ## Why Vue Forward Slots?
 
-In Vue applications, it's common to need to forward slots from a parent component to a child component. However, the
+In Vue applications, it's common having to forward slots from a parent component to a child component. However, the
 default way of doing this can be verbose and repetitive. Consider the following example:
 
 ### The Default Way
@@ -106,7 +106,7 @@ We forward the slots to the child components.
 #### TableHead Component
 
 The TableHeadComponent now has access to the slots defined in the root component. If no slot is provided, it will
-default to the text in the slot.
+use the default value.
 
 ```vue
 <template>
@@ -130,7 +130,7 @@ default to the text in the slot.
 #### TableBody Component
 
 The TableBodyComponent also has access to the slots defined in the root component. If no slot is provided, it will
-default to the text in the slot.
+use the default value.
 
 ```vue
 <template>
