@@ -25,7 +25,7 @@ const createSlots = (slots: Record<string, Function>, options: ForwardSlotsProps
         .reduce((acc, [key, slot]) => ({ ...acc, [key]: (args: any) => slot(args) }), {});
 };
 
-const withForwardedSlots = (component: VNode | undefined, slots: Record<string, Function>, options: ForwardSlotsProps): VNode =>
+const withForwardedSlots = (component: VNode | undefined, options: ForwardSlotsProps, slots: Record<string, Function>): VNode =>
     h(component, options, createSlots(slots, options));
 
 const ForwardSlotsComponent = defineComponent({
@@ -43,11 +43,11 @@ const ForwardSlotsComponent = defineComponent({
         }
     },
     setup(props: ForwardSlotsProps, ctx) {
-        const childComponents = computed(() => ctx.slots.default?.() || []);
+        const children = computed(() => ctx.slots.default?.() || []);
 
-        return () => childComponents.value.map(component =>
-            withForwardedSlots(component, (ctx as any).__slots || {}, props)
-        );
+        return () => children.value.map(vNode => {
+            return withForwardedSlots(vNode, props, { ...(vNode as any).children, ...(ctx as any).__slots } || {})
+        });
     }
 })
 
