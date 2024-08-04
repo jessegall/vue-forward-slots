@@ -54,12 +54,18 @@ npm install vue-forward-slots
 
 <script setup>
     import MyComponent from '@/Components/MyComponent.vue'
-    import {ForwardSlots} from 'vue-forward-slots'
+    import { ForwardSlots } from 'vue-forward-slots'
 </script>
 
 <template>
     <ForwardSlots>
         <MyComponent/> <!-- All slots will be forwarded to MyComponent -->
+    </ForwardSlots>
+    
+    // You can also forward slots to multiple components
+    <ForwardSlots>
+        <MyComponent/>
+        <AnotherComponent/>
     </ForwardSlots>
 </template>
 ```
@@ -75,7 +81,7 @@ npm install vue-forward-slots
     </ForwardSlots>
 
     // For multiple slots
-    <ForwardSlots :slots="['header', 'footer']">
+    <ForwardSlots :slot="['header', 'footer']">
         <MyComponent/>
     </ForwardSlots>
 </template>
