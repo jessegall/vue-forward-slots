@@ -62,14 +62,20 @@ function makeForwardSlotsComponent(instance: ComponentInternalInstance) {
         setup(props: ForwardSlotsProps, ctx) {
             const children = computed(() => ctx.slots.default?.() || []);
 
-            return () => children.value.map(vNode => withForwardedSlots(vNode, props, {
-                ...(vNode as any).children,
-                ...instance.slots,
-            }));
+            return () => {
+                component.__forwardSlotsInitialized = true;
+
+                return children.value.map(vNode => withForwardedSlots(vNode, props, {
+                    ...(vNode as any).children,
+                    ...instance.slots,
+                }));
+            }
         },
     });
 
-    component.__templateParentUid = instance.uid;
+    component.__forwardSlotsInitialized = false;
+
+    component.__forwardSlotsParentUid = instance.uid;
 
     return component;
 }
@@ -84,7 +90,7 @@ export const ForwardSlots = new Proxy({}, {
             return current[prop];
         }
 
-        if (! current || current.__templateParentUid !== instance.uid) {
+        if (! current || (current.__forwardSlotsInitialized && current.__forwardSlotsParentUid !== instance.uid)) {
             current = makeForwardSlotsComponent(instance);
         }
 
