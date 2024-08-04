@@ -9,11 +9,13 @@ Effortlessly forward slots to child components in Vue 3 applications.
 
 ## Why Vue Forward Slots?
 
-In Vue applications, it's common to need to forward slots from a parent component to a child component. However, the default way of doing this can be verbose and repetitive. Consider the following example:
+In Vue applications, it's common to need to forward slots from a parent component to a child component. However, the
+default way of doing this can be verbose and repetitive. Consider the following example:
 
 ### The Default Way
 
 ```vue
+
 <template>
     <ChildComponent>
         <template v-for="(index, name) in $slots" v-slot:[name]="data">
@@ -22,6 +24,21 @@ In Vue applications, it's common to need to forward slots from a parent componen
     </ChildComponent>
 </template>
 ```
+
+Verbose and hard to read!
+
+### With Vue Forward Slots
+
+```vue
+
+<template>
+    <ForwardSlots>
+        <ChildComponent/>
+    </ForwardSlots>
+</template>
+```
+
+Simple and clean!
 
 ## Installation
 
@@ -34,9 +51,10 @@ npm install vue-forward-slots
 ### Basic Usage
 
 ```vue
+
 <script setup>
     import MyComponent from '@/Components/MyComponent.vue'
-    import { ForwardSlots } from 'vue-forward-slots'
+    import {ForwardSlots} from 'vue-forward-slots'
 </script>
 
 <template>
@@ -49,6 +67,7 @@ npm install vue-forward-slots
 ### Forwarding Only Specific Slots
 
 ```vue
+
 <template>
     // For a single slot
     <ForwardSlots slot="header">
@@ -65,6 +84,7 @@ npm install vue-forward-slots
 ### Excluding Specific Slots
 
 ```vue
+
 <template>
     // Excluding a single slot
     <ForwardSlots :exclude="'sidebar'">
