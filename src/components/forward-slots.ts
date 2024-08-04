@@ -44,7 +44,7 @@ function withForwardedSlots(component: VNode | undefined, options: ForwardSlotsP
     return h(component, options, createSlots(slots, options));
 }
 
-const makeForwardSlotsComponent = (instance: ComponentInternalInstance) => {
+function makeForwardSlotsComponent(instance: ComponentInternalInstance) {
     const component = defineComponent({
         name: "ForwardSlots",
         props: {
