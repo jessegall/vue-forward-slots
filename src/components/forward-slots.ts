@@ -73,10 +73,6 @@ export const ForwardSlots = new Proxy(ForwardSlotsComponent, {
             }
         }
 
-        if (prop === 'setup') {
-            return target.setup;
-        }
-
         return target[prop];
     }
 });
