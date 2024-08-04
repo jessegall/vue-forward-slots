@@ -44,56 +44,52 @@ function withForwardedSlots(component: VNode | undefined, options: ForwardSlotsP
     return h(component, options, createSlots(slots, options));
 }
 
-const ForwardSlotsComponent = defineComponent({
-    name: "ForwardSlots",
-    props: {
-        slot: {
-            type: [String, Array] as PropType<SlotOption>,
-            default: () => [] as SlotOption,
-            validator: isValidSlotOption,
+const makeForwardSlotsComponent = (instance: ComponentInternalInstance) => {
+    const component = defineComponent({
+        name: "ForwardSlots",
+        props: {
+            slot: {
+                type: [String, Array] as PropType<SlotOption>,
+                default: () => [] as SlotOption,
+                validator: isValidSlotOption,
+            },
+            exclude: {
+                type: [String, Array] as PropType<SlotOption>,
+                default: () => 'default',
+                validator: isValidSlotOption,
+            }
         },
-        exclude: {
-            type: [String, Array] as PropType<SlotOption>,
-            default: () => 'default',
-            validator: isValidSlotOption,
-        }
-    },
-    setup(props: ForwardSlotsProps, ctx) {
-        const children = computed(() => ctx.slots.default?.() || []);
+        setup(props: ForwardSlotsProps, ctx) {
+            const children = computed(() => ctx.slots.default?.() || []);
 
-        return () => children.value.map(vNode => withForwardedSlots(vNode, props, {
-            ...(vNode as any).children,
-            ...(currentInstance?.slots || {})
-        }));
-    }
-})
+            return () => children.value.map(vNode => withForwardedSlots(vNode, props, {
+                ...(vNode as any).children,
+                ...instance.slots,
+            }));
+        },
+    });
 
-let currentInstance: ComponentInternalInstance = null;
+    component.__templateParentUid = instance.uid;
 
-export const ForwardSlots = new Proxy(ForwardSlotsComponent, {
-    get(target: any, prop: string | symbol) {
+    return component;
+}
 
-        // The __v_isRef property is accessed when Vue initializes the component.
-        // We use this as a hook to capture the correct instance to forward slots from.
-        // At this point, getCurrentInstance() still references the instance where ForwardSlots is used,
-        // allowing us to capture the intended parent before it's overwritten.
-        if (prop === '__v_isRef') {
-            updateCurrentInstance(getCurrentInstance());
+let current: ReturnType<typeof makeForwardSlotsComponent> | null = null;
+
+export const ForwardSlots = new Proxy({}, {
+    get(_, prop: string) {
+        const instance = getCurrentInstance();
+
+        if (! instance) {
+            return current[prop];
         }
 
-        return target[prop];
+        if (! current || current.__templateParentUid !== instance.uid) {
+            current = makeForwardSlotsComponent(instance);
+        }
+
+        return current[prop];
     }
 });
-
-function updateCurrentInstance(instance: ComponentInternalInstance) {
-    if (! instance) {
-        currentInstance = null;
-        return;
-    }
-
-    if (! currentInstance || currentInstance.uid !== instance.uid) {
-        currentInstance = instance;
-    }
-}
 
 export default ForwardSlots;

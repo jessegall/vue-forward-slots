@@ -11,6 +11,10 @@ export default defineConfig({
 			name: 'ForwardSlots',
 			formats: ['es', 'cjs'],
 		},
+        commonjsOptions: {
+            include: [/node_modules/],
+            extensions: ['.js', '.cjs'],
+        },
 		rollupOptions: {
 			external: ['vue'],
 			output: {
