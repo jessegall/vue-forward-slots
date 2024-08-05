@@ -73,11 +73,11 @@ let currentInstance: ComponentInternalInstance = null;
 export const ForwardSlots = new Proxy(ForwardSlotsComponent, {
     get(target: any, prop: string | symbol) {
 
-        // The __v_isRef property is accessed when Vue initializes the component.
+        // The __v_isVNode property is accessed when Vue initializes the component.
         // We use this as a hook to capture the correct instance to forward slots from.
         // At this point, getCurrentInstance() still references the instance where ForwardSlots is used,
         // allowing us to capture the intended parent before it's overwritten.
-        if (prop === '__v_isRef') {
+        if (prop === '__v_isVNode') {
             updateCurrentInstance(getCurrentInstance());
         }
 
