@@ -76,11 +76,11 @@ In this example we want the name header and role column to be customized. We def
 <template>
     <TableComponent>
         // Notice that we still have access to the slot data like we would normally
-        <template #name_header="{ value }">
+        <template #name-header="{ value }">
             <p class="font-bold">{{ value }}</p>
         </template>
 
-        <template #role_column="{ value }">
+        <template #role-column="{ value }">
             <RoleBadge :role="value"/>
         </template>
     </TableComponent>
@@ -113,12 +113,12 @@ default to the text in the slot.
     <thead>
     <tr>
         <th>
-            <slot name="name_header">
+            <slot name="name-header">
                 Name
             </slot>
         </th>
         <th>
-            <slot name="role_header">
+            <slot name="role-header">
                 Role
             </slot>
         </th>
@@ -137,12 +137,12 @@ default to the text in the slot.
     <tbody>
     <tr v-for="row in rows">
         <td>
-            <slot name="name_column" :value="row.name">
+            <slot name="name-column" :value="row.name">
                 {{ row.name }}
             </slot>
         </td>
         <td>
-            <slot name="role_column" :value="row.role">
+            <slot name="role-column" :value="row.role">
                 {{ row.role }}
             </slot>
         </td>
@@ -190,7 +190,7 @@ In theory, we could keep forwarding slots to as many levels of child components 
 ```vue
 <template>
     // Excluding a single slot
-    <ForwardSlots :exclude="'sidebar'">
+    <ForwardSlots exclude="sidebar">
         <MyComponent/>
     </ForwardSlots>
 
