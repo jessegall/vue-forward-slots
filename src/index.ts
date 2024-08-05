@@ -1,5 +1,5 @@
-import ForwardSlots from "./components/forward-slots";
+import { ForwardSlots } from "./components/forward-slots";
 
 export {
-    ForwardSlots
+    ForwardSlots,
 }

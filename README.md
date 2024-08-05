@@ -35,7 +35,7 @@ Verbose and hard to read!
 
 ```vue
 <template>
-    <ForwardSlots>
+    <ForwardSlots :slots="$slots">
         <ChildComponent/>
         <AnotherChildComponent/>
     </ForwardSlots>
@@ -95,7 +95,7 @@ We forward the slots to the child components.
 <template>
     <table>
         // Notice that we can wrap multiple components in the ForwardSlots component
-        <ForwardSlots>
+        <ForwardSlots :slots="$slots">
             <TableHeadComponent/>
             <TableBodyComponent/>
         </ForwardSlots>
@@ -158,7 +158,7 @@ We could even go a step further and forward the slots to the next level of child
     <thead>
     <tr>
         <th v-for="header in headers">
-            <ForwardSlots>
+            <ForwardSlots :slots="$slots">
                 <TableHeaderCellComponent/>
             </ForwardSlots>
         </th>
@@ -174,12 +174,12 @@ In theory, we could keep forwarding slots to as many levels of child components 
 ```vue
 <template>
     // For a single slot
-    <ForwardSlots slot="header">
+    <ForwardSlots :slots="$slots" only="header">
         <MyComponent/>
     </ForwardSlots>
 
     // For multiple slots
-    <ForwardSlots :slot="['header', 'footer']">
+    <ForwardSlots :slots="$slots" :only="['header', 'footer']">
         <MyComponent/>
     </ForwardSlots>
 </template>
@@ -189,25 +189,15 @@ In theory, we could keep forwarding slots to as many levels of child components 
 
 ```vue
 <template>
-    // Excluding a single slot
-    <ForwardSlots exclude="sidebar">
+    // For a single slot
+    <ForwardSlots :slots="$slots" except="sidebar">
         <MyComponent/>
     </ForwardSlots>
 
-    // Excluding multiple slots
-    <ForwardSlots :exclude="['sidebar', 'footer']">
+    // For multiple slots
+    <ForwardSlots :slots="$slots" :except="['sidebar', 'footer']">
         <MyComponent/>
     </ForwardSlots>
 </template>
 ```
 
-## How It Works
-
-The `ForwardSlots` component uses some clever tricks to simplify slot forwarding:
-
-1. It captures the parent component's slots during initialization.
-2. It filters these slots based on the `slot` and `exclude` props.
-3. It creates copies of the selected slots.
-4. It passes these copies to the child components.
-
-This happens automatically, allowing for easy and flexible slot forwarding without cluttering your template code.

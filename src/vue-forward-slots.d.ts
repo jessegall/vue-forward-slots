@@ -1,8 +1,9 @@
 import { DefineComponent } from 'vue';
 
 export interface ForwardSlotsProps {
-    slot?: string | string[];
-    exclude?: string | string[];
+    slots: Record<string, Function>;
+    only?: string | string[];
+    except?: string | string[];
 }
 
 export const ForwardSlots: DefineComponent<ForwardSlotsProps>;
