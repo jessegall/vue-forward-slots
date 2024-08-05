@@ -56,7 +56,8 @@ You can import it in the component where you want to use it.
 
 ```vue
 <script>
-    import { ForwardSlots } from "vue-forward-slots";
+    import {ForwardSlots} from "vue-forward-slots";
+
     ...
 </script>
 ```
@@ -70,18 +71,20 @@ We can easily define and forward slots to nested components using the `ForwardSl
 
 #### Root Component
 
-In this example we want the name header and role column to be customized. We define the slots like normal.
+We define the slots in the root component.
 
 ```vue
 <template>
     <TableComponent>
-        // Notice that we still have access to the slot data like we would normally
-        <template #name-header="{ value }">
-            <p class="font-bold">{{ value }}</p>
+        <template #name-header>
+            <p class="font-bold">
+                Name
+            </p>
         </template>
 
-        <template #role-column="{ value }">
-            <RoleBadge :role="value"/>
+        // We still have access to the slot data like we would normally
+        <template #status-cell="{ user }">
+            <StatusBadge :status="user.status"/>
         </template>
     </TableComponent>
 </template>
@@ -114,12 +117,12 @@ default to the text in the slot.
     <tr>
         <th>
             <slot name="name-header">
-                Name
+                Some default text
             </slot>
         </th>
         <th>
-            <slot name="role-header">
-                Role
+            <slot name="status-header">
+                Some default text
             </slot>
         </th>
     </tr>
@@ -135,15 +138,15 @@ default to the text in the slot.
 ```vue
 <template>
     <tbody>
-    <tr v-for="row in rows">
+    <tr v-for="user in users">
         <td>
-            <slot name="name-column" :value="row.name">
-                {{ row.name }}
+            <slot name="name-column" :user="user">
+                {{ user.name }}
             </slot>
         </td>
         <td>
-            <slot name="role-column" :value="row.role">
-                {{ row.role }}
+            <slot name="status-column" :user="user">
+                {{ user.status }}
             </slot>
         </td>
     </tr>
@@ -159,7 +162,7 @@ We could even go a step further and forward the slots to the next level of child
     <tr>
         <th v-for="header in headers">
             <ForwardSlots :slots="$slots">
-                <TableHeaderCellComponent/>
+                <TableHeaderCell :header="header"/>
             </ForwardSlots>
         </th>
     </tr>
