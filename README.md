@@ -132,20 +132,19 @@ default to the text in the slot.
 
 #### TableBody Component
 
-The TableBodyComponent also has access to the slots defined in the root component. If no slot is provided, it will
-default to the text in the slot.
+The TableBodyComponent also has access to the slots defined in the root component. Notice how we also pass the user data.
 
 ```vue
 <template>
     <tbody>
     <tr v-for="user in users">
         <td>
-            <slot name="name-column" :user="user">
+            <slot name="name-cell" :user="user">
                 {{ user.name }}
             </slot>
         </td>
         <td>
-            <slot name="status-column" :user="user">
+            <slot name="status-cell" :user="user">
                 {{ user.status }}
             </slot>
         </td>
