@@ -3,11 +3,15 @@ import {
     defineComponent,
     h,
     PropType,
+    Slot,
     VNode,
 } from 'vue';
 
 type SlotOption = string | string[];
-type Slots = Record<string, Function>;
+
+type Slots = {
+    [name: string]: Slot | undefined;
+};
 
 interface ForwardSlotsProps {
     slots: Slots;

@@ -1,7 +1,9 @@
-import { DefineComponent } from 'vue';
+import { DefineComponent, Slot } from 'vue';
 
 export interface ForwardSlotsProps {
-    slots: Record<string, Function>;
+    slots: {
+        [name: string]: Slot | undefined;
+    };
     only?: string | string[];
     except?: string | string[];
 }
