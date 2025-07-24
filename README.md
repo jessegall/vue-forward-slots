@@ -35,10 +35,18 @@ Verbose and hard to read!
 
 ```vue
 <template>
+    
+    <ForwardSlots>
+        <ChildComponent/>
+        <AnotherChildComponent/>
+    </ForwardSlots>
+    
+    // In versions prior to v5.1.0 you need to pass the slots explicitly
     <ForwardSlots :slots="$slots">
         <ChildComponent/>
         <AnotherChildComponent/>
     </ForwardSlots>
+    
 </template>
 ```
 
@@ -56,7 +64,7 @@ You can import it in the component where you want to use it.
 
 ```vue
 <script>
-    import {ForwardSlots} from "vue-forward-slots";
+    import { ForwardSlots } from "vue-forward-slots";
 
     ...
 </script>
@@ -98,7 +106,7 @@ We forward the slots to the child components.
 <template>
     <table>
         // Notice that we can wrap multiple components in the ForwardSlots component
-        <ForwardSlots :slots="$slots">
+        <ForwardSlots>
             <TableHeadComponent/>
             <TableBodyComponent/>
         </ForwardSlots>
@@ -160,7 +168,7 @@ We could even go a step further and forward the slots to the next level of child
     <thead>
     <tr>
         <th v-for="header in headers">
-            <ForwardSlots :slots="$slots">
+            <ForwardSlots>
                 <TableHeaderCell :header="header"/>
             </ForwardSlots>
         </th>
@@ -176,12 +184,12 @@ In theory, we could keep forwarding slots to as many levels of child components 
 ```vue
 <template>
     // For a single slot
-    <ForwardSlots :slots="$slots" only="header">
+    <ForwardSlots only="header">
         <MyComponent/>
     </ForwardSlots>
 
     // For multiple slots
-    <ForwardSlots :slots="$slots" :only="['header', 'footer']">
+    <ForwardSlots :only="['header', 'footer']">
         <MyComponent/>
     </ForwardSlots>
 </template>
@@ -192,12 +200,12 @@ In theory, we could keep forwarding slots to as many levels of child components 
 ```vue
 <template>
     // For a single slot
-    <ForwardSlots :slots="$slots" except="sidebar">
+    <ForwardSlots except="sidebar">
         <MyComponent/>
     </ForwardSlots>
 
     // For multiple slots
-    <ForwardSlots :slots="$slots" :except="['sidebar', 'footer']">
+    <ForwardSlots :except="['sidebar', 'footer']">
         <MyComponent/>
     </ForwardSlots>
 </template>
