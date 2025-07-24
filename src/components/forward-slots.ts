@@ -1,6 +1,6 @@
 import {
     computed,
-    defineComponent,
+    defineComponent, getCurrentInstance,
     h,
     PropType,
     Slot,
@@ -60,8 +60,8 @@ export const ForwardSlots = defineComponent({
     props: {
         slots: {
             type: Object as PropType<Slots>,
-            default: () => ({}),
-            required: true
+            default: () => getCurrentInstance().parent['ctx'].$slots || {},
+            required: false
         },
         only: {
             type: [String, Array] as PropType<SlotOption>,
