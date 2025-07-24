@@ -1,6 +1,10 @@
 # Vue Forward Slots
 
-Effortlessly forward slots to child components in Vue 3 applications.
+*Effortlessly forward slots to child components in Vue 3 applications.*
+
+[![npm](https://img.shields.io/npm/v/vue-forward-slots.svg)](https://www.npmjs.com/package/vue-forward-slots)
+![license](https://img.shields.io/npm/l/vue-forward-slots.svg)
+[![downloads](https://img.shields.io/npm/dt/vue-forward-slots.svg)](https://www.npmjs.com/package/vue-forward-slots)
 
 ## Features
 
@@ -15,6 +19,7 @@ default way of doing this can be verbose and repetitive. Consider the following 
 ### The Default Way
 
 ```vue
+
 <template>
     <ChildComponent>
         <template v-for="(index, name) in $slots" v-slot:[name]="data">
@@ -34,11 +39,12 @@ Verbose and hard to read!
 ### With Vue Forward Slots
 
 ```vue
-<template>    
+
+<template>
     <ForwardSlots>
         <ChildComponent/>
         <AnotherChildComponent/>
-    </ForwardSlots>    
+    </ForwardSlots>
 </template>
 ```
 
@@ -47,7 +53,9 @@ Simple and clean!
 
 > [!NOTE]  
 > With Vue Forward Slots prior to v5.1.0 you need to pass the slots explicitly
+
 ```vue
+
 <template>
     <ForwardSlots :slots="$slots">
         <ChildComponent/>
@@ -67,8 +75,9 @@ npm install vue-forward-slots
 You can import it in the component where you want to use it.
 
 ```vue
+
 <script>
-    import { ForwardSlots } from "vue-forward-slots";
+    import {ForwardSlots} from "vue-forward-slots";
 
     ...
 </script>
@@ -86,6 +95,7 @@ We can easily define and forward slots to nested components using the `ForwardSl
 We define the slots in the root component.
 
 ```vue
+
 <template>
     <TableComponent>
         <template #name-header>
@@ -107,6 +117,7 @@ We define the slots in the root component.
 We forward the slots to the child components.
 
 ```vue
+
 <template>
     <table>
         // Notice that we can wrap multiple components in the ForwardSlots component
@@ -124,6 +135,7 @@ The TableHeadComponent now has access to the slots defined in the root component
 default to the text in the slot.
 
 ```vue
+
 <template>
     <thead>
     <tr>
@@ -144,9 +156,11 @@ default to the text in the slot.
 
 #### TableBody Component
 
-The TableBodyComponent also has access to the slots defined in the root component. Notice how we also pass the user data.
+The TableBodyComponent also has access to the slots defined in the root component. Notice how we also pass the user
+data.
 
 ```vue
+
 <template>
     <tbody>
     <tr v-for="user in users">
@@ -168,6 +182,7 @@ The TableBodyComponent also has access to the slots defined in the root componen
 We could even go a step further and forward the slots to the next level of child components.
 
 ```vue
+
 <template>
     <thead>
     <tr>
@@ -186,6 +201,7 @@ In theory, we could keep forwarding slots to as many levels of child components 
 ### Forwarding Only Specific Slots
 
 ```vue
+
 <template>
     // For a single slot
     <ForwardSlots only="header">
@@ -202,6 +218,7 @@ In theory, we could keep forwarding slots to as many levels of child components 
 ### Excluding Specific Slots
 
 ```vue
+
 <template>
     // For a single slot
     <ForwardSlots except="sidebar">
