@@ -34,23 +34,27 @@ Verbose and hard to read!
 ### With Vue Forward Slots
 
 ```vue
-<template>
-    
+<template>    
     <ForwardSlots>
         <ChildComponent/>
         <AnotherChildComponent/>
-    </ForwardSlots>
-    
-    // In versions prior to v5.1.0 you need to pass the slots explicitly
-    <ForwardSlots :slots="$slots">
-        <ChildComponent/>
-        <AnotherChildComponent/>
-    </ForwardSlots>
-    
+    </ForwardSlots>    
 </template>
 ```
 
 Simple and clean!
+
+
+> [!NOTE]  
+> With Vue Forward Slots prior to v5.1.0 you need to pass the slots explicitly
+```vue
+<template>
+    <ForwardSlots :slots="$slots">
+        <ChildComponent/>
+        <AnotherChildComponent/>
+    </ForwardSlots>
+</template>   
+```
 
 ## Installation
 
