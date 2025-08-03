@@ -1,7 +1,7 @@
 import { DefineComponent, Slot } from 'vue';
 
 export interface ForwardSlotsProps {
-    slots?: {
+    slots: {
         [name: string]: Slot | undefined;
     };
     only?: string | string[];

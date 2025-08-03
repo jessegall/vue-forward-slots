@@ -60,7 +60,7 @@ export const ForwardSlots = defineComponent({
     props: {
         slots: {
             type: Object as PropType<Slots>,
-            required: false
+            required: true,
         },
         only: {
             type: [String, Array] as PropType<SlotOption>,
