@@ -10,7 +10,7 @@ import {
 type SlotOption = string | string[];
 
 type Slots = {
-    [name: string]: Slot | undefined;
+    [name: string]: Slot<any> | undefined;
 };
 
 interface ForwardSlotsProps {
